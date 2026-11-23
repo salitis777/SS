@@ -58,7 +58,7 @@ install() {
   ISDL=false
   [ ! -f "${WORK_PATH}/LICENSE" ] && [ ! -f "${WORK_PATH}/README.md" ] && rm -rf "${WORK_PATH}/patch/${VERSION}/${SS_NAME}"
   if [ ! -d "${WORK_PATH}/patch/${VERSION}/${SS_NAME}" ]; then
-    REPO="${REPO:-"ohyeah521/Surveillance-Station"}"
+    REPO="${REPO:-"salitis777/SS"}"
     BRANCH="${BRANCH:-"main"}"
 
     # 检查版本是否存在
