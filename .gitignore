@@ -1,7 +1,3 @@
-!.gitkeep
-.vscode
-
-/official/extract
-/official/syno-archive
-
-**.spk
+.DS_Store
+*.tmp
+*.log
