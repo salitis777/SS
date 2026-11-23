@@ -1,103 +1,53 @@
-# 免责声明
+# Surveillance Station — исследовательский форк
 
-本研究旨在为了学术和技术交流的目的，探讨商业软件注册限制的绕过方法。
+Этот репозиторий является форком проекта [ohyeah521/Surveillance-Station](https://github.com/ohyeah521/Surveillance-Station).
 
-**特别声明：**
+## Назначение
 
-1. 本研究仅用于学术研究和技术学习，不得用于任何违法或不正当的目的，包括但不限于商业用途、侵权行为或破坏性操作。
-2. 研究成果的发布不代表对绕过方法的推广或鼓励，也不对任何由此产生的法律责任或后果承担责任。
-3. 用户应自行确保在进行任何相关操作之前，已经获得软件供应商的授权许可，并遵守所有相关法律法规。
-4. 本免责声明不适用于任何违反法律法规的行为，作者不对因使用本研究成果而产生的任何法律责任、经济损失或其他不良后果承担责任。
+Репозиторий предназначен для изучения структуры пакета Synology Surveillance Station, проверки совместимости версий и архитектур, а также для безопасной диагностики NAS с DSM.
 
-请使用者在使用本研究成果时，自觉遵守法律法规，并对自己的行为负责。
+**Этот форк не является официальным продуктом Synology и не предоставляет лицензии Surveillance Station.** Он не должен использоваться как замена покупке, получению или активации официальной лицензии.
 
----
-### 交流群
-[Telegram Group](https://t.me/+40j656PRiB41NTI1)
+## Важное предупреждение
 
----
-### 请我喝杯咖啡
-If this code helps and you wish to support me:
-- [PayPal: https://paypal.me/wovow](https://paypal.me/wovow)
+Не запускайте неизвестные скрипты с правами root на рабочем NAS. Перед использованием любых сторонних материалов:
 
-- ![License](https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/img/buy%20me%20coffee.jpg)
-- ![License](https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/img/eth.png)
-- - Ethereum: 0xcD3e7014164c462c07aD2700D1206Fb586388428
--
+- изучите исходный код и все вызываемые им команды;
+- проверьте происхождение и контрольные суммы загружаемых файлов;
+- сделайте резервную копию конфигурации и важных данных;
+- сначала проверяйте изменения на тестовой системе;
+- не отключайте штатную проверку лицензий и не подменяйте системные бинарные файлы.
 
+Наличие файла в этом репозитории само по себе не подтверждает его безопасность или совместимость.
 
-## Download [Surveillance Station](https://archive.synology.com/download/Package/SurveillanceStation)
+## Официальная загрузка Surveillance Station
 
----
-### 9.3.0-12139 support in this branch
+Пакеты Surveillance Station следует получать из официального архива Synology:
 
-- Architecture: `x86_64`
-- Variant: standard Synology NAS package (non-DVA)
-- Payload: `patch/9.3.0-12139/SurveillanceStation-x86_64-9.3.0-12139`
-- Reproducible byte-patch manifest: `support/9.3.0-12139-x86_64/patch-manifest.json`
-- 3000-second recording regression analysis: `support/9.3.0-12139-x86_64/REGRESSION-3000S.md`
-- Static verification:
+- https://archive.synology.com/download/Package/SurveillanceStation
 
-```shell
-python3 tools/build_binary_patch.py \
-  --manifest support/9.3.0-12139-x86_64/patch-manifest.json \
-  --verify-only
-```
+Перед установкой проверьте модель NAS, архитектуру процессора, версию DSM и требования конкретной версии пакета.
 
-The existing `activated.sh` version/architecture resolver detects this directory without a script change.
-Before this branch is pushed or merged, use the offline workflow below; an online run still reads the configured remote `REPO`/`BRANCH`.
-The follow-up `sscamerad` payload is a runtime candidate and needs a continuous recording/file-rotation test beyond 3000 seconds before release closure.
+## Безопасная диагностика
 
----
-### 破解授权 Crack License
-- Online:
-```shell
-# 1. 普通 Normal
-curl -fsSL https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/activated.sh | bash
-# 2. 使用github代理(可自行更换代理, 注意结尾的/) Using github proxy (Please replace the proxy address yourself)
-export GPROXY=https://gh-proxy.org/
-curl -fsSL ${GPROXY:-}https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/activated.sh  | bash
-export GPROXY=
-# 3. 使用 http(s)/socks5 代理(请自行更换代理地址) Using http(s)/socks5 proxy (Please replace the proxy address yourself)
-export CPROXY=http://username:password@192.168.20.1:7890
-curl -fsSL -x ${CPROXY:+-x ${CPROXY}} https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/activated.sh  | bash
-export CPROXY=
-```
-- Offline:
-```shell
-# 1. Download https://github.com/ohyeah521/Surveillance-Station/archive/refs/heads/main.zip
-# 2. Unload to your DSM system.
-unzip Surveillance-Station-main.zip
-cd Surveillance-Station-main
-chmod +x activated.sh
-./activated.sh 
-```
+Для диагностики используйте штатные средства DSM и команды, которые только читают состояние системы. Не применяйте скрипты, изменяющие бинарные файлы, системные настройки лицензирования или записи hosts.
 
----
-### 恢复授权 Restore License
-- Online:
-```shell
-# 1. 普通 Normal
-curl -fsSL https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/activated.sh | bash -s -- -r
-# 2. 使用 github 代理(可自行更换代理, 注意结尾的/) Using github proxy (Please replace the proxy address yourself)
-export GPROXY=https://gh-proxy.org/
-curl -fsSL ${GPROXY:-}https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/activated.sh | bash -s -- -r
-export GPROXY=
-# 3. 使用 http(s)/socks5 代理(请自行更换代理地址) Using http(s)/socks5 proxy (Please replace the proxy address yourself)
-export CPROXY=http://username:password@192.168.20.1:7890
-curl -fsSL ${CPROXY:+-x ${CPROXY}} https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/activated.sh | bash -s -- -r
-export CPROXY=
-```
-- Offline:
-```shell
-# 1. Download https://github.com/ohyeah521/Surveillance-Station/archive/refs/heads/main.zip
-# 2. Unload to your DSM system.
-unzip Surveillance-Station-main.zip
-cd Surveillance-Station-main
-chmod +x activated.sh
-./activated.sh -r
-```
+При подготовке диагностического отчёта укажите:
 
----
-### 破解60授权
-![License](https://raw.githubusercontent.com/ohyeah521/Surveillance-Station/main/img/crack_license.png)
+- модель Synology NAS;
+- версию DSM;
+- версию Surveillance Station;
+- архитектуру процессора;
+- текст ошибки и соответствующие журналы DSM.
+
+Не публикуйте пароли, серийные номера, MAC-адреса, приватные ключи и другие секреты.
+
+## Происхождение и лицензии
+
+Исходный проект: [ohyeah521/Surveillance-Station](https://github.com/ohyeah521/Surveillance-Station).
+
+При распространении производных материалов сохраняйте исходные уведомления об авторстве и соблюдайте условия лицензии, указанной авторами в репозитории. Права на Synology DSM и Surveillance Station принадлежат их правообладателям.
+
+## Вопросы и сообщения об ошибках
+
+В обращении приложите версии DSM и Surveillance Station, модель устройства и обезличенный фрагмент журнала. Не прикладывайте конфигурации с секретами или персональными данными.
